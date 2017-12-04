@@ -359,7 +359,7 @@ export type ITransferToTradingParams = {
 
 //</editor-fold>
 
-export const getClient = (auth?: IApiAuth, configOverride: IHitBtcRequestConfig = null) => ({
+export const getClient = (auth?: IApiAuth, configOverride: IHitBtcRequestConfig = null): IHitBtcClient => ({
 
     rawAgent: getRawAgent(auth),
 
