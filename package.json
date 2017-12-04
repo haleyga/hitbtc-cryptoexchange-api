@@ -1,6 +1,6 @@
 {
   "name": "hitbtc-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simple typescript interface to the HitBTC cryptoexchange.",
   "main": "index.js",
   "scripts": {
