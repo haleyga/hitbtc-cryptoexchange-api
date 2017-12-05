@@ -1,5 +1,5 @@
 {
-  "name": "hitbtc-api",
+  "name": "hitbtc-cryptoexchange-api",
   "version": "0.2.1",
   "description": "Simple typescript interface to the HitBTC cryptoexchange.",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haleyga/hitbtc-api.git"
+    "url": "git+https://github.com/haleyga/hitbtc-cryptoexchange-api.git"
   },
   "keywords": [
     "crypto",
@@ -27,9 +27,9 @@
   "author": "Graham Haley",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/haleyga/hitbtc-api/issues"
+    "url": "https://github.com/haleyga/hitbtc-cryptoexchange-api/issues"
   },
-  "homepage": "https://github.com/haleyga/hitbtc-api#readme",
+  "homepage": "https://github.com/haleyga/hitbtc-cryptoexchange-api#readme",
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/chai": "^4.0.0",
