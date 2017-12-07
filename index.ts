@@ -280,7 +280,7 @@ export type IGetOrderBookParams = { limit?: number; };
 export type IGetCandleParams = { limit?: number; period?: string };
 export type INewOrderParams = {
     clientOrderId?: string;
-    symbolId: string;
+    symbol: string;
     side: string;
     type?: string;
     timeInForce?: string;
