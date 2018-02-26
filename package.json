@@ -1,14 +1,16 @@
 {
   "name": "hitbtc-cryptoexchange-api",
-  "version": "0.3.3",
+  "version": "0.4.3",
   "description": "Simple typescript interface to the HitBTC cryptoexchange.",
-  "main": "dist/es6/index.js",
-  "types": "dist/es6/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist",
-    "test": ""
+    "clean": "rm -rf dist"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haleyga/hitbtc-cryptoexchange-api.git"
@@ -32,28 +34,16 @@
   },
   "homepage": "https://github.com/haleyga/hitbtc-cryptoexchange-api#readme",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/chai": "^4.0.0",
-    "@types/http-status-codes": "^1.0.29",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^8.0.49",
+    "@types/node": "^8.5.8",
     "@types/qs": "^6.5.1",
     "@types/uuid": "^3.0.0",
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2",
-    "chai": "^4.0.2",
-    "mocha": "^4.0.1",
-    "nsp": "^3.1.0",
-    "nyc": "^11.0.3",
     "source-map-support": "^0.5.0",
     "ts-node": "^3.1.0",
-    "tslint": "^5.4.3",
-    "typedoc": "^0.9.0",
-    "typescript": "^2.3.4",
-    "uglify-js": "^3.1.8"
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2"
   },
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.17.1",
     "http-status-codes": "^1.3.0",
     "qs": "^6.5.1",
     "uuid": "^3.1.0"

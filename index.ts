@@ -19,13 +19,14 @@ const defaultConfig = {
  * Default HTTP agent configuration.
  */
 const defaultAgentConfig = {
-    baseURL: defaultConfig.rootUrl,
-    headers: {
+    baseURL       : defaultConfig.rootUrl,
+    headers       : {
         'Content-Type': 'application/json',
         'User-Agent'  : `HitBTC API Client (hitbtc-cryptoexchange-api node package)`,
     },
-    method : 'GET',
-    timeout: defaultConfig.timeout,
+    method        : 'GET',
+    timeout       : defaultConfig.timeout,
+    validateStatus: () => true,
 };
 
 /**
@@ -131,7 +132,7 @@ const getRawAgent = (auth?: IApiAuth): IRawAgent => ({
 
         // The uri is a relative path to the privateAgentConfig baseUrl
         const data = method === 'GET' ? null : dataParams;
-        const uri  = method === 'GET' ? `/${endpoint}/${qs.stringify(dataParams)}` : `/${endpoint}`;
+        const uri  = method === 'GET' ? `/${endpoint}?${qs.stringify(dataParams)}` : `/${endpoint}`;
 
         const headersOverride = config ? config.headers : null;
 
@@ -195,11 +196,11 @@ export interface IHitBtcClient {
 
     getTickerInfo(symbolId: string): Promise<IHitBtcResponse>;
 
-    getTradesInfo(symbolId: string, queryParams: IGetTradesInfoParams): Promise<IHitBtcResponse>;
+    getTradesInfo(symbolId: string, queryParams?: IGetTradesInfoParams): Promise<IHitBtcResponse>;
 
-    getOrderBook(symbolId: string, queryParams: IGetOrderBookParams): Promise<IHitBtcResponse>;
+    getOrderBook(symbolId: string, queryParams?: IGetOrderBookParams): Promise<IHitBtcResponse>;
 
-    getCandle(symbolId: string, queryParams: IGetCandleParams): Promise<IHitBtcResponse>;
+    getCandle(symbolId: string, queryParams?: IGetCandleParams): Promise<IHitBtcResponse>;
 
     //</editor-fold>
 
@@ -211,9 +212,9 @@ export interface IHitBtcClient {
 
     cancelAllOrders(params?: ICancelAllOrdersParams): Promise<IHitBtcResponse>;
 
-    getOrderByClientId(clientOrderId: string, params: IGetOrderParams): Promise<IHitBtcResponse>;
+    getOrderByClientId(clientOrderId: string, params?: IGetOrderParams): Promise<IHitBtcResponse>;
 
-    createNewClientIdOrder(clientOrderId: string, params: INewOrderByClientIdParams): Promise<IHitBtcResponse>;
+    createNewClientIdOrder(clientOrderId: string, params?: INewOrderByClientIdParams): Promise<IHitBtcResponse>;
 
     cancelClientIdOrder(clientOrderId: string): Promise<IHitBtcResponse>;
 
@@ -229,7 +230,7 @@ export interface IHitBtcClient {
 
     getTrades(params?: IGetTradesParams): Promise<IHitBtcResponse>;
 
-    getOrders(params?: IGetOrdersParams): Promise<IHitBtcResponse>;
+    getOrders(params: IGetOrdersParams): Promise<IHitBtcResponse>;
 
     getTradesByOrderId(orderId: number): Promise<IHitBtcResponse>;
 
@@ -287,7 +288,7 @@ export type INewOrderParams = {
     strictValidate?: boolean
 };
 
-export type ICancelAllOrdersParams = { symbo?: string };
+export type ICancelAllOrdersParams = { symbol?: string };
 export type IGetOrderParams = { wait?: number; };
 
 export type INewOrderByClientIdParams = {
@@ -320,10 +321,10 @@ export type IGetTradesParams = {
 
 export type IGetOrdersParams = {
     symbol?: string;
-    from?: string;
-    till?: string;
+    from: string;
+    till: string;
     limit?: number;
-    offset?: number;
+    offset: number;
     clientOrderId?: string;
 };
 
@@ -389,15 +390,15 @@ export const getClient = (auth?: IApiAuth, configOverride: IHitBtcRequestConfig 
         return this.rawAgent.publicRequest(`public/ticker/${symbolId}`, null, configOverride);
     },
 
-    async getTradesInfo(symbolId: string, queryParams: IGetTradesInfoParams): Promise<IHitBtcResponse> {
+    async getTradesInfo(symbolId: string, queryParams?: IGetTradesInfoParams): Promise<IHitBtcResponse> {
         return this.rawAgent.publicRequest(`public/trades/${symbolId}`, queryParams, configOverride);
     },
 
-    async getOrderBook(symbolId: string, queryParams: IGetOrderBookParams): Promise<IHitBtcResponse> {
+    async getOrderBook(symbolId: string, queryParams?: IGetOrderBookParams): Promise<IHitBtcResponse> {
         return this.rawAgent.publicRequest(`public/orderbook/${symbolId}`, queryParams, configOverride);
     },
 
-    async getCandle(symbolId: string, queryParams: IGetCandleParams): Promise<IHitBtcResponse> {
+    async getCandle(symbolId: string, queryParams?: IGetCandleParams): Promise<IHitBtcResponse> {
         return this.rawAgent.publicRequest(`public/candles/${symbolId}`, queryParams, configOverride);
     },
 
@@ -417,11 +418,11 @@ export const getClient = (auth?: IApiAuth, configOverride: IHitBtcRequestConfig 
         return this.rawAgent.privateRequest(`order`, 'DELETE', params, configOverride);
     },
 
-    async getOrderByClientId(clientOrderId: string, params: IGetOrderParams): Promise<IHitBtcResponse> {
-        return this.rawAgent.privateRequest(`order/${clientOrderId}`, 'POST', params, configOverride);
+    async getOrderByClientId(clientOrderId: string, params?: IGetOrderParams): Promise<IHitBtcResponse> {
+        return this.rawAgent.privateRequest(`order/${clientOrderId}`, 'GET', params, configOverride);
     },
 
-    async createNewClientIdOrder(clientOrderId: string, params: INewOrderByClientIdParams): Promise<IHitBtcResponse> {
+    async createNewClientIdOrder(clientOrderId: string, params?: INewOrderByClientIdParams): Promise<IHitBtcResponse> {
         return this.rawAgent.privateRequest(`order/${clientOrderId}`, 'PUT', params, configOverride);
     },
 
@@ -449,7 +450,7 @@ export const getClient = (auth?: IApiAuth, configOverride: IHitBtcRequestConfig 
         return this.rawAgent.privateRequest('history/trades', 'GET', params, configOverride);
     },
 
-    async getOrders(params?: IGetOrdersParams): Promise<IHitBtcResponse> {
+    async getOrders(params: IGetOrdersParams): Promise<IHitBtcResponse> {
         return this.rawAgent.privateRequest('history/order', 'GET', params, configOverride);
     },
 
